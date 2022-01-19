@@ -37,16 +37,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.sonarlint.intellij.analysis.AnalysisStatus;
 import org.sonarlint.intellij.common.ui.SonarLintConsole;
-import org.sonarlint.intellij.common.util.SonarLintUtils;
 import org.sonarlint.intellij.config.Settings;
 import org.sonarlint.intellij.config.global.ServerConnection;
 import org.sonarlint.intellij.config.global.SonarLintGlobalSettings;
 import org.sonarlint.intellij.config.module.SonarLintModuleSettings;
 import org.sonarlint.intellij.config.project.SonarLintProjectSettings;
+import org.sonarlint.intellij.core.SonarLintEngineManager;
+import org.sonarlint.intellij.core.SonarLintTestEngineManager;
 import org.sonarlint.intellij.messages.ProjectConfigurationListener;
 import org.sonarlint.intellij.ui.SonarLintConsoleTestImpl;
 
 import static com.intellij.notification.NotificationsManager.getNotificationsManager;
+import static org.sonarlint.intellij.common.util.SonarLintUtils.getService;
 import static org.sonarlint.intellij.config.Settings.getSettingsFor;
 
 public abstract class AbstractSonarLintLightTests extends LightPlatformCodeInsightFixture4TestCase {
@@ -111,7 +113,7 @@ public abstract class AbstractSonarLintLightTests extends LightPlatformCodeInsig
   }
 
   protected SonarLintConsoleTestImpl getConsole() {
-    return (SonarLintConsoleTestImpl) SonarLintUtils.getService(getProject(), SonarLintConsole.class);
+    return (SonarLintConsoleTestImpl) getService(getProject(), SonarLintConsole.class);
   }
 
   public VirtualFile createTestFile(String fileName, Language language, String text) {
@@ -158,5 +160,9 @@ public abstract class AbstractSonarLintLightTests extends LightPlatformCodeInsig
 
   protected void setGlobalLevelExclusions(List<String> exclusions) {
     getGlobalSettings().setFileExclusions(exclusions);
+  }
+
+  protected SonarLintTestEngineManager getEngineManager() {
+    return (SonarLintTestEngineManager) getService(SonarLintEngineManager.class);
   }
 }

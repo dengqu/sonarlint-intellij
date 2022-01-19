@@ -17,14 +17,15 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonarlint.intellij.messages;
+package org.sonarlint.intellij.messages
 
-import com.intellij.util.messages.Topic;
-import javax.annotation.Nullable;
-import org.sonarsource.sonarlint.core.client.api.common.SonarLintEngine;
+import com.intellij.util.messages.Topic
+import org.sonarlint.intellij.core.AnalysisEnv
 
-public interface ProjectEngineListener {
-  Topic<ProjectEngineListener> TOPIC = Topic.create("Project engine events", ProjectEngineListener.class);
+interface AnalysisEnvListener {
+    fun analysisEnvChanged(previousAnalysisEnv: AnalysisEnv, newAnalysisEnv: AnalysisEnv)
 
-  void engineChanged(@Nullable SonarLintEngine previousEngine, @Nullable SonarLintEngine newEngine);
+    companion object {
+        @JvmField val TOPIC = Topic.create("Project binding events", AnalysisEnvListener::class.java)
+    }
 }
