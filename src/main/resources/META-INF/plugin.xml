@@ -148,6 +148,7 @@
     <projectListeners>
         <listener class="org.sonarlint.intellij.module.ModuleChangeListener" topic="com.intellij.openapi.project.ModuleListener"/>
         <listener class="org.sonarlint.intellij.module.ModuleEngineChangeListener" topic="org.sonarlint.intellij.messages.ProjectEngineListener"/>
+        <listener class="org.sonarlint.intellij.vcs.TriggerServerBranchResolutionOnVcsChange" topic="com.intellij.openapi.vcs.changes.ChangeListListener"/>
     </projectListeners>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -197,6 +198,7 @@
                             testServiceImplementation="org.sonarlint.intellij.util.SynchronousThreadPoolExecutor"/>
 
         <projectService serviceImplementation="org.sonarlint.intellij.core.ProjectBindingManager"/>
+        <projectService serviceImplementation="org.sonarlint.intellij.vcs.VcsService"/>
         <projectService serviceImplementation="org.sonarlint.intellij.config.project.SonarLintProjectSettingsStore"/>
         <projectService serviceImplementation="org.sonarlint.intellij.notifications.SonarLintProjectNotifications"/>
         <projectService serviceInterface="org.sonarlint.intellij.common.ui.SonarLintConsole"

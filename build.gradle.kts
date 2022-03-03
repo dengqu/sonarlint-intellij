@@ -162,6 +162,9 @@ configurations {
 
 dependencies {
     implementation("org.sonarsource.sonarlint.core:sonarlint-core:$sonarlintCoreVersion")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r") {
+        exclude(module = "slf4j-api")
+    }
     implementation("commons-lang:commons-lang:2.6")
     compileOnly("com.google.code.findbugs:jsr305:2.0.2")
     // Actual runtime dependency is shaded by sonarlint-core but seems invisible to IntelliJ

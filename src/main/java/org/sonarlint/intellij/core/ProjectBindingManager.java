@@ -213,7 +213,16 @@ public class ProjectBindingManager {
     return Collections.emptySet();
   }
 
-  public Set<String> getUniqueProjectKeysForModules(Collection<Module> modules) {
+  @CheckForNull
+  public String getMainProjectKey() {
+    var projectSettings = getSettingsFor(myProject);
+    if (projectSettings.isBound()) {
+      return projectSettings.getProjectKey();
+    }
+    return null;
+  }
+
+  private Set<String> getUniqueProjectKeysForModules(Collection<Module> modules) {
     return modules.stream().map(module -> getService(module, ModuleBindingManager.class).resolveProjectKey())
       .filter(projectKey -> !isBlank(projectKey))
       .collect(Collectors.toSet());
